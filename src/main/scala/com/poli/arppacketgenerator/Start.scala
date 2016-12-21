@@ -8,6 +8,8 @@ import com.poli.arppacketgenerator.ui.main.MainFrameView
  */
 object Start extends App {
   val appName = ApplicationConfMessages.getString("app-name")
-  val main = new MainFrameView(appName, 200, 200)
+  val dimensionX = ApplicationConfMessages.getInt("dimension-x")
+  val dimensionY = ApplicationConfMessages.getInt("dimension-x")
+  val main = new MainFrameView(appName, dimensionX, dimensionY)
   main.visible = true
 }

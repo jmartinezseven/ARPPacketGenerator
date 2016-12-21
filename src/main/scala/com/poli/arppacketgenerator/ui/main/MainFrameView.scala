@@ -2,16 +2,17 @@ package com.poli.arppacketgenerator.ui.main
 
 import java.awt.Dimension
 
+import com.poli.arppacketgenerator.ui.commons.WindowFrameSettings
 import com.poli.arppacketgenerator.ui.dialog.DestinationFrame
 
-import scala.swing.{FlowPanel, BorderPanel, Button, MainFrame}
+import scala.swing.{FlowPanel, Button, MainFrame}
 
 /**
  * Created by juanmartinez on 20/12/16.
  */
-class MainFrameView(titleFrame: String, dimensionX: Int, dimensionY: Int) extends  MainFrame{
-  title = titleFrame
-  preferredSize = new Dimension(dimensionX, dimensionY)
+class MainFrameView extends MainFrame with WindowFrameSettings{
+  title = getName()
+  preferredSize = new Dimension(getDimensions()._1, getDimensions()._2)
   contents = new FlowPanel {
     contents += Button("Iniciar prueba") { openDestinationFrame() }
   }
