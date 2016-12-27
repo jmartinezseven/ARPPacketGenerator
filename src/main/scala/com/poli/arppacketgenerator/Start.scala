@@ -10,6 +10,6 @@ object Start extends App {
   val appName = ApplicationConfMessages.getString("app-name")
   val dimensionX = ApplicationConfMessages.getInt("dimension-x")
   val dimensionY = ApplicationConfMessages.getInt("dimension-x")
-  val main = new MainFrameView(appName, dimensionX, dimensionY)
+  val main = new MainFrameView()
   main.visible = true
 }

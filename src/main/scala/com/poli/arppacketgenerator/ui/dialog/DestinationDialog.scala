@@ -14,15 +14,24 @@ class DestinationFrame extends MainFrame with WindowFrameSettings{
   title = getName()
   preferredSize = new Dimension(getDimensions()._1, getDimensions()._2)
 
-  val labelGenerateDinamnew Label("Generar MAC dinamicas: ")
-  val generateMacDinamic = new CheckBox()
+  val labelGenerateDynamic = new Label("Generar MAC origen dinamicas: ")
+  val generateMacDynamic = new CheckBox()
+  val labelSrcIp = new Label("IP origen:")
+  val txtFieldIpSrc = new TextField()
+  val labelMacDestination = new Label("MAC Destino:")
+  val txtBoxMacDest = new TextField()
+  val labelIPDestiny = new Label("IP Destino: ")
+  val txtBoxIpDest = new TextField()
+
 
   contents = new GridPanel(2, 2) {
-    contents +=
-    contents += new CheckBox()
-    contents += new Button("Another Button")
-    contents += new Button("Button Three")
-    contents += new CheckBox("Check me!")
-    contents += Button("Close") { sys.exit(0) }
+    contents += labelGenerateDynamic
+    contents += generateMacDynamic
+    contents += labelSrcIp
+    contents += txtFieldIpSrc
+    contents += labelMacDestination
+    contents += txtBoxMacDest
+    contents += labelIPDestiny
+    contents += txtBoxIpDest
   }
 }
