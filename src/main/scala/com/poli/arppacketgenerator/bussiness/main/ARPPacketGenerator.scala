@@ -7,6 +7,9 @@ import com.poli.arppacketgenerator.bussiness.interfaces.services.NetworkInterfac
 import com.poli.arppacketgenerator.bussiness.tasks.ARPSenderTask
 import org.pcap4j.util.MacAddress
 
+import scala.collection.immutable.IndexedSeq
+import scala.util.Try
+
 /**
   * Clase que modela la logica principal del generador de paquetes ARP
   *
@@ -24,15 +27,17 @@ class ARPPacketGenerator(networkInterfacesService: NetworkInterfacesService,
     * Ejecuta las pruebas creando el número de tareas indicadas
     * y agregandolas al pull de threads para ejecutarlas
     */
-  def execute (): Unit = {
-    for {
-      i <- 0 to packetGeneratorParameters.numTask - 1
-    } yield {
-      val interface = networkInterfacesService.getSelectedNetworkInterface(packetGeneratorParameters.selectedInterface.index)
-      val destMacAdd = MacAddress.getByName(packetGeneratorParameters.destinationMacAddress)
-      val task = new ARPSenderTask(interface, false, destMacAdd, packetGeneratorParameters.sourceIpAddress, i)
-      tasks(i) = task
-      executorService.execute(task)
+  def execute (): Try[IndexedSeq[Unit]] = {
+    Try {
+      for {
+        i <- 0 to packetGeneratorParameters.numTask - 1
+      } yield {
+        val interface = networkInterfacesService.getSelectedNetworkInterface(packetGeneratorParameters.selectedInterface.index)
+        val destMacAdd = MacAddress.getByName(packetGeneratorParameters.destinationMacAddress)
+        val task = new ARPSenderTask(interface, false, destMacAdd, packetGeneratorParameters.sourceIpAddress, i)
+        tasks(i) = task
+        executorService.execute(task)
+      }
     }
   }
 
@@ -40,7 +45,7 @@ class ARPPacketGenerator(networkInterfacesService: NetworkInterfacesService,
     * Detiene las tareas y termina el thread pull
     */
   def stopTasks(): Unit = {
-    tasks.foreach(_.stopLoop)
+    tasks.foreach(_.stopLoop = true)
     executorService.shutdown()
   }
 
