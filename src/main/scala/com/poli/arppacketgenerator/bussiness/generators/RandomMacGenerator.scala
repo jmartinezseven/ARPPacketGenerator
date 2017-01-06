@@ -5,7 +5,7 @@ import java.util.Random
 /**
   * Created by juanmartinez on 27/12/16.
   */
-object RandomMacGenerator extends App {
+object RandomMacGenerator {
 
   /**
     * Genera mac aleatoriamente

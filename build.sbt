@@ -16,5 +16,7 @@ libraryDependencies ++= Seq(
   "com.typesafe" % "config" % "1.2.1",
   "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
   "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
-  "org.scala-lang.modules" %% "scala-swing" % "1.0.2"
+  "org.scala-lang.modules" %% "scala-swing" % "1.0.2",
+  "ch.qos.logback" % "logback-classic" % "1.1.7",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
 )

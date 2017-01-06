@@ -11,7 +11,7 @@ trait WindowFrameSettings {
 
   def getDimensions() = {
     val dimensionX = ApplicationConfMessages.getInt("dimension-x")
-    val dimensionY = ApplicationConfMessages.getInt("dimension-x")
+    val dimensionY = ApplicationConfMessages.getInt("dimension-y")
     (dimensionX, dimensionY)
   }
 
