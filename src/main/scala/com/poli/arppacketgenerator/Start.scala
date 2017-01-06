@@ -4,8 +4,8 @@ import com.poli.arppacketgenerator.commons.ApplicationConfMessages
 import com.poli.arppacketgenerator.ui.main.MainFrameView
 
 /**
- * Created by juanmartinez on 20/12/16.
- */
+  * Clase que inicia la interfaz gráfica principal
+  */
 object Start extends App {
   val appName = ApplicationConfMessages.getString("app-name")
   val dimensionX = ApplicationConfMessages.getInt("dimension-x")

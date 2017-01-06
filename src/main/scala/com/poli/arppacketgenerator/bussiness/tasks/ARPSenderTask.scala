@@ -14,7 +14,7 @@ import org.pcap4j.util.{ByteArrays, MacAddress}
 /**
   * Created by juanmartinez on 5/01/17.
   */
-class ARPSenderTask(nif: PcapNetworkInterface, var stopLoop: Boolean = false, destinationMac: MacAddress, sourceIpAddress: String) extends Thread with LazyLogging{
+class ARPSenderTask(nif: PcapNetworkInterface, var stopLoop: Boolean = false, destinationMac: MacAddress, sourceIpAddress: String, taskId: Int) extends Thread with LazyLogging{
 
   val sendHandle: PcapHandle = nif.openLive(SNAPLEN, PromiscuousMode.PROMISCUOUS, READ_TIMEOUT)
 
@@ -32,12 +32,13 @@ class ARPSenderTask(nif: PcapNetworkInterface, var stopLoop: Boolean = false, de
         .srcHardwareAddr(sourceMacAddress)
         .srcProtocolAddr(InetAddress.getByName(sourceIpAddress))
         .dstHardwareAddr(destinationMac)
-        .dstProtocolAddr(InetAddress.getByName(sourceIpAddress))
+        .dstProtocolAddr(InetAddress.getByName("192.168.1.16"))
 
       val etherBuilder = new EthernetPacket.Builder
       etherBuilder.dstAddr(destinationMac).srcAddr(sourceMacAddress).`type`(EtherType.ARP).payloadBuilder(arpBuilder).paddingAtBuild(true)
 
       logger.info("Enviando el paquete ARP:")
+      logger.info(s"Id de la tarea ${taskId}")
       logger.info(s"MAC fuente: ${sourceMacAddress.toString}")
 
       val p = etherBuilder.build
