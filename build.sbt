@@ -20,3 +20,14 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.1.7",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0"
 )
+
+assemblyMergeStrategy in assembly := {
+  case PathList("org", "pcap4j", xs @ _*) => MergeStrategy.last
+  case x =>
+    val oldStrategy = (assemblyMergeStrategy in assembly).value
+    oldStrategy(x)
+}
+
+mainClass in assembly := Some("com.poli.arppacketgenerator.Start")
+
+assemblyJarName in assembly := "ARPPacketGenerator.jar"
