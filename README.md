@@ -52,10 +52,13 @@ También es posible que se presente un error con wireshark. Puede presentarse el
 Para construir el proyecto primero cree una carpeta en la ubucación de su preferencia y clone el proyecto dentro de esa carpeta. Deberá ver una carpeta llamada  ARPPacketGenerator.
 
 Ingrese a la carpeta ARPPacketGenerator desde una consola ejecute: 
-> $ sbt  // Esto iniciara la herramienta de construcción de proyectos
-> $ update  // Descargara las dependencias necesarias
-> $ compile  // Compila los archivos fuentes del proyecto 
-> $ assembly  // Empaqueta la aplicación en un Jar ejecutable para usar ARPPacketGenerator
+> $ sbt       *Esto iniciara la herramienta de construcción de proyectos*
+
+> $ update    *Descargara las dependencias necesarias*
+
+> $ compile   *Compila los archivos fuentes del proyecto*
+
+> $ assembly  *Empaqueta la aplicación en un Jar ejecutable para usar ARPPacketGenerator*
 
 Localice el Jar generado en la ruta ARPPacketGenerator/target/scala-2.11/ARPPacketGenerator.jar
 
