@@ -12,12 +12,26 @@ import org.pcap4j.packet.namednumber.{ArpHardwareType, ArpOperation, EtherType}
 import org.pcap4j.util.{ByteArrays, MacAddress}
 
 /**
-  * Created by juanmartinez on 5/01/17.
+  * Clase que modela la tarea que genera los paquetes ARP y las envia desde direcciones MAC
+  * aleatorias
+  *
+  * @param nif
+  * @param stopLoop
+  * @param destinationMac
+  * @param sourceIpAddress
+  * @param taskId
   */
 class ARPSenderTask(nif: PcapNetworkInterface, var stopLoop: Boolean = false, destinationMac: MacAddress, sourceIpAddress: String, taskId: Int) extends Thread with LazyLogging{
 
   val sendHandle: PcapHandle = nif.openLive(SNAPLEN, PromiscuousMode.PROMISCUOUS, READ_TIMEOUT)
 
+  /**
+    * Función que se ejecuta al momento de crear la tarea en el hilo de ejecución
+    *
+    * Construye el paquete ARP y lo envía a con una MAC origen aleatoria
+    * Lo envia indefinidamente hasta que se cumpla la condición del ciclo dentro
+    * de la función
+    */
   override def run(): Unit = {
     val arpBuilder = new ArpPacket.Builder
 
@@ -32,7 +46,7 @@ class ARPSenderTask(nif: PcapNetworkInterface, var stopLoop: Boolean = false, de
         .srcHardwareAddr(sourceMacAddress)
         .srcProtocolAddr(InetAddress.getByName(sourceIpAddress))
         .dstHardwareAddr(destinationMac)
-        .dstProtocolAddr(InetAddress.getByName("192.168.1.16"))
+        .dstProtocolAddr(InetAddress.getByName(sourceIpAddress))
 
       val etherBuilder = new EthernetPacket.Builder
       etherBuilder.dstAddr(destinationMac).srcAddr(sourceMacAddress).`type`(EtherType.ARP).payloadBuilder(arpBuilder).paddingAtBuild(true)
@@ -47,6 +61,9 @@ class ARPSenderTask(nif: PcapNetworkInterface, var stopLoop: Boolean = false, de
     }
   }
 
+  /**
+    * Detiene el ciclo que envia los paquetes ARP y termina los hilos de ejecución
+    */
   def stopFinalLoop() = {
     stopLoop = true
     this.finalize()
