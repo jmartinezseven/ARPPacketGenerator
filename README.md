@@ -31,10 +31,15 @@ Nota: Se escogió el sistema operativo ubuntu por simplicidad en los permisos de
 # Instalación de wireshark
 
 - sudo add-apt-repository ppa:wireshark-dev/stable
-- 
+- sudo apt-get update
+- sudo apt-get install wireshark
 
 # Configuraciones adicionales
 
 Hay que darle permiso a java para que pueda acceder a las interfaces de red y poder hacer uso de ellas. Para eso ejecute el siguiente comando
 
 - sudo setcap cap_net_raw,cap_net_admin=eip /usr/lib/jvm/java-8-oracle/bin/java
+
+También es posible que se presente un error con wireshark. Puede presentarse el error *dumpcap permission denied* para lo que tiene que ejecutar:
+
+- sudo chgrp <usuario_sistema> /usr/bin/dumpcap
