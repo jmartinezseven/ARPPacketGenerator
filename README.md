@@ -4,6 +4,7 @@ Este pequeño programa tiene como objetivo generar trafico ARP con MAC origen al
 
 # Precondiciones 
 * Java 8
+* Git
 * SBT
 * libpcap-dev
 * Wireshark con permisos necesarios para ver tráfico
@@ -42,4 +43,20 @@ Hay que darle permiso a java para que pueda acceder a las interfaces de red y po
 
 También es posible que se presente un error con wireshark. Puede presentarse el error *dumpcap permission denied* para lo que tiene que ejecutar:
 
-- sudo chgrp <usuario_sistema> /usr/bin/dumpcap
+- sudo chgrp *usuario_sistema* /usr/bin/dumpcap
+- sudo chmod 750 /usr/bin/dumpcap
+- sudo setcap cap_net_raw,cap_net_admin+eip /usr/bin/dumpcap
+
+# Construir el proyecto
+
+Para construir el proyecto primero cree una carpeta en la ubucación de su preferencia y clone el proyecto dentro de esa carpeta. Deberá ver una carpeta llamada  ARPPacketGenerator.
+
+Ingrese a la carpeta ARPPacketGenerator desde una consola ejecute: 
+> $ sbt
+
+> $ update
+
+> $ compile
+
+> $ assembly
+
