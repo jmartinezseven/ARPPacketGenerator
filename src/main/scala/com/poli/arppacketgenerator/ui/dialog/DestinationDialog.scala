@@ -40,6 +40,8 @@ class DestinationFrame extends MainFrame with WindowFrameSettings {
     contents += nextButton
   }
 
+  println("émdiente echo")
+
   def clearData(): Unit = {
     txtFieldIpSrc.peer.setText("")
     txtBoxMacDest.peer.setText("")
